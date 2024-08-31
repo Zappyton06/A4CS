@@ -1,0 +1,23 @@
+% Real-time data acquisition and processing
+while true
+    data = readline(t);
+    distance = str2double(data);
+    
+    % Preprocess the data
+    filtered_data = lowpass(distance, 0.1);
+    
+    % Detect anomalies (simple thresholding)
+    if abs(filtered_data - previous_data) > threshold
+        disp('Crack detected');
+        % Trigger alert or log the event
+    end
+    
+    % Visualization
+    plot(time, filtered_data);
+    title('Ultrasonic Distance Measurement');
+    xlabel('Time (s)');
+    ylabel('Distance (cm)');
+    drawnow;
+    
+    previous_data = filtered_data;
+end
